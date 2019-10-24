@@ -1,5 +1,7 @@
 h1. Rakbot 2000
+
 Przyszłość Polskiej robotyki
 
 h2. Jak ustawić
+
 Zainstaluj zależności komendą @npm install@, uzupełnij plik .env o klucze API, których będziesz używać i wywal z index.js te moduły, z których nie zamierzasz korzystać. Następnie po prostu odpal bota komendą @npm run start@. Gotowe. 👏
