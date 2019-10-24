@@ -1,0 +1,6 @@
+.env
+.vscode/
+node_modules/
+assets/accounts.db
+assets/macros.json
+assets/webserver/
