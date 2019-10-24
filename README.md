@@ -1,2 +1,0 @@
-# rakbot
-Przyszłość Polskiej robotyki
