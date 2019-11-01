@@ -122,6 +122,7 @@ module.exports = {
 
             message.channel.send(new Discord.RichEmbed({
                 title: account,
+                url: "https://nanocrawler.cc/explorer/account/" + account,
                 description: "**Dostępne środki**: " + available + " NANO\n"
                     +"**Środki oczekujące**: " + pending + " NANO"
             }));
@@ -159,7 +160,7 @@ module.exports = {
 
             var pending = data.blocks[usrData.address];
             message.channel.send("⏳ **Przetwarzanie oczekujących transakcji**:\n"
-                +"```json\n" + JSON.stringify(pending, null, 2) + "```\n"
+                +"```json\n" + JSON.stringify(pending, null, 2) + "```"
                 +"To może chwilę potrwać...");
 
             return processTransactions(usrData.key, accInfo, pending);
