@@ -279,10 +279,12 @@ async function processTransactions(key, accInfo, transactions){
     for(let tx in transactions){
         if(BigInt(transactions[tx].amount) < BigInt(0)) continue; //ignore gay shit
 
+        var bal = String(BigInt(accInfo.balance) + BigInt(transactions[tx].amount));
+
         var block = await client._send("block_create", {
             type: "state",
             previous: accInfo.frontier,
-            balance: String(BigInt(accInfo.balance) + BigInt(transactions[tx].amount)),
+            balance: bal,
             key: key,
             link: tx,
             representative: accInfo.representative
@@ -292,8 +294,9 @@ async function processTransactions(key, accInfo, transactions){
             var result = await client.process(block.block);
 
             if(!result.error && result.hash){
+                console.log(result.hash + " successfully processed.");
                 accInfo.frontier = result.hash;
-                accInfo.balance = block.block.balance;
+                accInfo.balance = bal;
             }else{
                 throw(result);
             }
@@ -317,6 +320,7 @@ async function attemptTransfer(key, accInfo, amount, target){
         let result = await client.process(block.block);
 
         if(!result.error && result.hash){
+            console.log(result.hash + " successfully processed.");
             return result.hash;
         }else{
             throw(result);
