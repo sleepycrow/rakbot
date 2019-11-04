@@ -4,6 +4,7 @@ const sqlite3 = require("sqlite3").verbose();
 const nanocurrency = require('nanocurrency');
 const NanoClient = require('nano-node-rpc');
 
+var discordClient;
 const client = new NanoClient({apiKey: process.env.MYNANONINJA_KEY});
 const altClient = new NanoClient({url: 'https://nanoverse.io/api/node'});
 var db = null;
@@ -21,10 +22,12 @@ module.exports = {
     accountDB: "./assets/accounts.db",
     initCommandRegex: /init-nano/i,
     fundsCommandRegex: /funds/i,
-    transferCommandRegex: /transfer ([0-9.]+) (<@!?([0-9]+)>|([^ ]+))/i,
+    transferCommandRegex: /transfer ([0-9.]+) (<@!?([0-9]+)>|([^ ]+))(?: "([^"]+)")?/i,
     receiveCommandRegex: /receive/i,
 
     onStart: function(ctx){
+        discordClient = ctx.client;
+        
         // start DB
         var dbExists = fs.existsSync(this.accountDB);
         db = new sqlite3.Database(this.accountDB);
@@ -215,7 +218,10 @@ module.exports = {
             return attemptTransfer(usrData.key, accInfo, nanocurrency.convert(invocation[1], {from: nanocurrency.Unit.NANO, to: nanocurrency.Unit.raw}), target);
         })
         .then(() => {
-            message.channel.send("✔ Fundusze zostały wysłane.")
+            message.channel.send("✔ Fundusze zostały wysłane.");
+
+            // If transfer is to discord tag, notify user.
+            if(invocation[3]) sendTransferNotification(message.author, invocation[3], invocation[1], invocation[5]); //invocation[5] is the message (if any, otherwise == undefined)
         })
         .catch(err => {
             handleErr(message, err);
@@ -328,4 +334,16 @@ async function attemptTransfer(key, accInfo, amount, target){
     }else{
         throw(block);
     }
+}
+
+async function sendTransferNotification(sender, recipientId, amount, message = null){
+    if(!discordClient || !sender || !recipientId || !amount) return;
+
+    let recipient = await discordClient.fetchUser(recipientId);
+    let dmChannel = await recipient.createDM();
+    dmChannel.send("💲 Dostałeś " + amount + " NANO od " + sender.tag + "! 🎉\n"
+        +(message ? "`" + message + "`\n" : "") //ugly but short and works. this returns a message if one is set, or an empty string if not.
+        +"Użyj komendy `&receive` aby odebrać fundusze!");
+
+    return true;
 }
