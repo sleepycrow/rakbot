@@ -14,7 +14,7 @@ module.exports = {
     name: "nano",
     helpEntry: "**&init-nano** - Tworzy konto nano\n"
         +"**&funds** - Wysyła adres i saldo twojego konta nano\n"
-        +"**&transfer <ilosc> <adres lub tag discord>** - Przelewa podaną ilość nano do kogoś\n"
+        +"**&transfer <ilosc> <adres lub tag discord> \"[wiadomość]\"** - Przelewa podaną ilość nano do kogoś\n"
         +"**&receive** - Odbiera wszystkie oczekujące środki\n\n"
         +"Więcej informacji: https://telegra.ph/Informacje-o-Nano-10-24",
     category: "Kryptowaluta Nano",
