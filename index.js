@@ -75,7 +75,7 @@ client.on('ready', () => {
 });
 
 for(var i = 0; i < modules.length; i++){
-    if(modules[i].onStart) modules[i].onStart();
+    if(modules[i].onStart) modules[i].onStart(context);
 }
 
 client.login(process.env.DISCORD_API_KEY);
