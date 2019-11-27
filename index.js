@@ -26,6 +26,7 @@ modules.push(require("./modules/commands/calc.js"));
 modules.push(require("./modules/commands/translate.js"));
 modules.push(require("./modules/commands/rand.js"));
 modules.push(require("./modules/commands/roll.js"));
+modules.push(require("./modules/commands/krypto.js"));
 modules.push(require("./modules/anti-rak.js"));
 modules.push(require("./modules/linux.js"));
 modules.push(require("./modules/marineta.js"));
