@@ -17,6 +17,7 @@ module.exports = {
         let currency = message.content.match(this.regex)[1];
 
         if(!currency || !tickers[currency.toUpperCase()]){
+            message.channel.stopTyping();
             ctx.utils.sendError({errMsg: "Nie znam takiej waluty."}, message.channel);
             return;
         }
