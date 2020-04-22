@@ -28,7 +28,6 @@ modules.push(require("./modules/commands/krypto.js"));
 modules.push(require("./modules/anti-rak.js"));
 modules.push(require("./modules/macro.js"));
 modules.push(require("./modules/ddg.js"));
-modules.push(require("./modules/webserver.js"));
 modules.push(require("./modules/nano.js"));
 
 const context = {
