@@ -2,6 +2,5 @@
 .vscode/
 node_modules/
 assets/accounts.db
-assets/macros.json
+assets/macros.db
 assets/webserver/
-package-lock.json
