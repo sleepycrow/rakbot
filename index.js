@@ -70,7 +70,7 @@ client.on('ready', () => {
     client.user.setActivity('&help • www.rak.bot.nu', { type: 'PLAYING' });
 });
 
-fs.mkdirSync("assets"); // Make sure the assets dir exists, for module compatibility reasons.
+if(!fs.existsSync("./assets/")) fs.mkdirSync("assets"); // Make sure the assets dir exists, for module compatibility reasons.
 
 for(var i = 0; i < modules.length; i++){
     if(modules[i].onStart) modules[i].onStart(context);
