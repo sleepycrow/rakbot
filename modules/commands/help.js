@@ -25,13 +25,21 @@ module.exports = {
             }
         }
 
-        for(let category in entries){
-            if(entries[category].length == 0) continue;
-            
-            message.channel.send(new Discord.RichEmbed({
-                title: "**" + category + "**",
-                description: entries[category].join("\n")
-            }));
-        }
+        message.author.createDM()
+        .then(dm => {
+            dm.send("**--==[RAKBOT 2000]==--**");
+
+            for(let category in entries){
+                if(entries[category].length == 0) continue;
+                
+                dm.send(new Discord.RichEmbed({
+                    title: "**" + category + "**",
+                    description: entries[category].join("\n")
+                }));
+            }
+
+            message.channel.send("✉️ Wysłałem ci na privie, słodziaku~ :* <3 ");
+        });
+        
     }
 };

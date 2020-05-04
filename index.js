@@ -5,6 +5,7 @@
 
 require("dotenv").config();
 const Discord = require('discord.js');
+const fs = require("fs");
 const client = new Discord.Client();
 const utils = require("./utils.js");
 const commandPrefix = /^&/;
@@ -68,6 +69,8 @@ client.on('ready', () => {
     console.log('ready to rak!');
     client.user.setActivity('&help • www.rak.bot.nu', { type: 'PLAYING' });
 });
+
+fs.mkdirSync("assets"); // Make sure the assets dir exists, for module compatibility reasons.
 
 for(var i = 0; i < modules.length; i++){
     if(modules[i].onStart) modules[i].onStart(context);
