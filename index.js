@@ -14,6 +14,7 @@ var modules = [];
 modules.push(require("./modules/commands/help.js"));
 modules.push(require("./modules/commands/clean.js"));
 modules.push(require("./modules/commands/emoji.js"));
+modules.push(require("./modules/commands/say.js"));
 modules.push(require("./modules/commands/e621.js"));
 modules.push(require("./modules/commands/4chan.js"));
 modules.push(require("./modules/commands/reddit.js"));
@@ -56,11 +57,11 @@ client.on('message', message => {
                     commandFound = true;
                 }
             }
-            
+
             if(modules[i].onMessage){
                 modules[i].onMessage(context, message);
             }
-            
+
         }
     }
 });
