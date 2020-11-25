@@ -15,21 +15,29 @@ module.exports = {
         tags = tags.replace(/, ?/g, "+");
         tags = tags.replace(/ /g, "_");
 
-        axios.get("https://e621.net/post/index.json?tags="+tags, {
-            headers: {"User-Agent": "Rakbot/2.0 geihomo"}
+        axios.get("https://e621.net/posts.json?tags="+tags, {
+            headers: {"User-Agent": "Rakbot/2.0"}
         })
         .then(resp => {
-            if(resp.data.length <= 0) throw {errMsg: "Nie znaleziono żadnych dzieł o tagach " + tags};
+            var posts = resp.data.posts;
+            if(posts.length <= 0) throw {errMsg: "Nie znaleziono żadnych dzieł o tagach " + tags};
 
-            let item = resp.data[Math.randomRange(0, resp.data.length - 1)];
+            // Select a random submission
+            let item = posts[Math.randomRange(0, posts.length - 1)];
+
+            // Make a string of all of the submission's the tags
+            let tags = "";
+            for(cat in item.tags) tags += item.tags[cat].join(" ");
+
             message.channel.send(new Discord.RichEmbed({
-                title: item.file_url,
-                description: item.tags,
-                url: item.file_url,
-                file: item.file_url
+                title: item.file.url,
+                description: tags,
+                url: item.file.url,
+                file: item.file.url
             }));
         })
         .catch(err => {
+            console.error(err);
             ctx.utils.sendError(err, message.channel);
         })
         .then(() => {
