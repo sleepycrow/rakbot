@@ -10,13 +10,13 @@ module.exports = {
 
     onInvoke: function(ctx, message){
         message.channel.startTyping();
-        
-        axios.get("http://petittube.com", {responseType: "text"})
+
+        axios.get("https://petittube.com", {responseType: "text"})
         .then(resp => {
             let embedURL = resp.data.match(/https?:\/\/(www.)?youtube.com\/embed\/([^\? "]+)/gi);
 
             if(embedURL != null){
-                let videoLink = embedURL[0].replace("http://www.youtube.com/embed/", "http://youtu.be/");
+                let videoLink = embedURL[0].replace(/https?:\/\/(www.)?youtube.com\/embed\//, "https://youtu.be/");
                 message.channel.send(videoLink);
             }else{
                 throw {};
