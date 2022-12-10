@@ -13,7 +13,7 @@
     "axios": "^0.18.0",
     "discord.js": "^11.3.2",
     "dotenv": "^7.0.0",
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "nano-node-rpc": "^0.3.1",
     "nanocurrency": "^2.3.0",
     "sqlite3": "^4.1.0"
